@@ -22,6 +22,23 @@
 
 ---
 
+## 📋 Kategori & Format File yang Didukung
+
+TidyFile secara bawaan mendukung pembagian kategori file yang sangat luas dari berbagai sistem operasi (Windows, macOS, Android, iOS), desain kreatif, pemrograman, hingga data analitik:
+
+| Kategori | Deskripsi / Bidang | Contoh Ekstensi Format |
+|---|---|---|
+| 📄 **Documents** | Dokumen teks, e-book, perkantoran | `.pdf`, `.docx`, `.doc`, `.xlsx`, `.xls`, `.pptx`, `.ppt`, `.txt`, `.rtf`, `.odt`, `.csv`, `.md`, `.pages`, `.numbers`, `.key`, `.epub`, `.mobi`, `.azw3`, `.gdoc`, `.gsheet`, `.wps` |
+| 📊 **Data & Models** | Dataset analitik, database & model AI/ML | `.json`, `.parquet`, `.pkl`, `.sqlite`, `.db`, `.tsv`, `.yaml`, `.xml`, `.h5`, `.feather`, `.pb`, `.onnx`, `.tflite`, `.bin`, `.mat` |
+| 💻 **Code & Projects** | Source code & script pemrograman | `.py`, `.ipynb`, `.sql`, `.js`, `.ts`, `.html`, `.css`, `.c`, `.cpp`, `.h`, `.cs`, `.java`, `.kt`, `.swift`, `.dart`, `.sh`, `.bat`, `.ps1`, `.go`, `.rs`, `.php`, `.rb` |
+| 📈 **BI & Design Links** | Analisis data BI & link visual design | `.twbx`, `.twb`, `.pbix`, `.pbit`, `.fig`, `.xd`, `.sketch`, `.cdr` |
+| 🖼️ **Images** | Foto, ilustrasi, asset gambar & desain | `.png`, `.jpg`, `.jpeg`, `.gif`, `.bmp`, `.tiff`, `.webp`, `.heic`, `.heif`, `.psd`, `.ai`, `.svg`, raw format (`.cr2`, `.nef`) |
+| 🎵 **Audio & Video** | Rekaman suara, lagu, video & podcast | `.mp4`, `.mkv`, `.avi`, `.mov`, `.webm`, `.flv`, `.wmv`, `.3gp`, `.mp3`, `.wav`, `.m4a`, `.flac`, `.aac`, `.ogg`, `.opus`, `.amr` |
+| 📦 **Compressed & Packages** | File kompresi arsip, installer OS & aplikasi | `.zip`, `.rar`, `.7z`, `.tar`, `.gz`, `.iso`, `.cab`, `.img`, `.dmg`, `.pkg`, `.apk`, `.aab`, `.ipa`, `.exe`, `.msi` |
+| 🔤 **Fonts** | Typografi tulisan untuk desain & web | `.ttf`, `.otf`, `.woff`, `.woff2`, `.eot` |
+
+---
+
 ## 📂 Struktur Direktori Project
 
 ```text
