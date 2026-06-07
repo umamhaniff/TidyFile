@@ -14,7 +14,7 @@ To achieve this:
 
 ## Technical Details
 
-### 1. CLI Arguments in [src/main.py](file:///D:/_CampusLife/ProjectCampus/6ProjectPribadi/TidyFile/src/main.py)
+### 1. CLI Arguments in [src/main.py](src/main.py)
 * Add parser argument `--path`:
   ```python
   parser.add_argument("--path", type=str, help="Path folder spesifik yang ingin dirapikan (mengabaikan target_folders di config.json).")
@@ -30,7 +30,7 @@ To achieve this:
           organizer.organize_folder(folder)
   ```
 
-### 2. File Exclusion in [src/core.py](file:///D:/_CampusLife/ProjectCampus/6ProjectPribadi/TidyFile/src/core.py)
+### 2. File Exclusion in [src/core.py](src/core.py)
 * Update the ignore list to include `"tidy_here.bat"`:
   ```python
   if file_path.name.lower() in [
@@ -47,7 +47,7 @@ To achieve this:
       return
   ```
 
-### 3. Portable Script [tidy_here.bat](file:///D:/_CampusLife/ProjectCampus/6ProjectPribadi/TidyFile/tidy_here.bat)
+### 3. Portable Script [tidy_here.bat](tidy_here.bat)
 * Create this file at the project root:
   ```bat
   @echo off
@@ -55,7 +55,7 @@ To achieve this:
   :: Salin file ini ke folder mana saja, lalu klik dua kali untuk merapikannya!
   
   set "TARGET_DIR=%~dp0"
-  cd /d "D:\_CampusLife\ProjectCampus\6ProjectPribadi\TidyFile"
+  cd /d "<TidyFile_Directory>"
   ".venv\Scripts\python.exe" -m src.main --path "%TARGET_DIR%"
   pause
   ```

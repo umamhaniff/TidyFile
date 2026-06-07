@@ -1,5 +1,6 @@
 # 🧹 TidyFile Central Organizer
 
+[![Latest Release](https://img.shields.io/github/v/release/umamhaniff/TidyFile?color=brightgreen&label=version)](https://github.com/umamhaniff/TidyFile/releases)
 [![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-lightgrey.svg)](https://www.microsoft.com/windows)
 [![Dependencies](https://img.shields.io/badge/dependencies-watchdog-orange.svg)](https://github.com/gorakhargosh/watchdog)
@@ -133,8 +134,8 @@ Agar folder kamu dirapikan secara otomatis (misal: setiap hari jam 4 sore):
 3. Beri nama tugas: `TidyFile Auto Organizer`.
 4. Pilih Trigger: `Daily` (setiap hari) atau `When I log on` (setiap laptop dinyalakan).
 5. Pada bagian Action, pilih `Start a program`.
-6. Di kolom **Program/script**, arahkan ke file `.bat` absolut kamu:
-   `D:\_CampusLife\ProjectCampus\6ProjectPribadi\TidyFile\scripts\run_once.bat`
+6. Di kolom **Program/script**, arahkan ke file `.bat` absolut di komputer Anda (misal: jika diletakkan di `C:\TidyFile`):
+   `C:\TidyFile\scripts\run_once.bat`
 7. Klik **Finish**.
 
 ---
@@ -146,4 +147,23 @@ Project ini dilengkapi dengan unit test menyeluruh menggunakan modul `unittest` 
 Untuk menjalankan seluruh test suite:
 ```powershell
 python -m unittest discover tests
+```
+
+---
+
+## 🏷️ Versioning & Git Tags
+
+Project ini menggunakan standar [Semantic Versioning (SemVer)](https://semver.org/). Untuk menandai rilis versi baru, buat tag Git dan push ke repositori:
+
+```powershell
+# Membuat tag versi baru
+git tag -a v1.0.0 -m "Release version 1.0.0"
+
+# Mengirim tag ke repositori remote (GitHub)
+git push origin v1.0.0
+```
+
+Kamu juga bisa memeriksa versi aktif aplikasi melalui CLI dengan perintah:
+```powershell
+python -m src.main --version
 ```

@@ -154,7 +154,7 @@ Create the new portable batch script at the project root.
   :: Salin file ini ke folder mana saja, lalu klik dua kali untuk merapikannya!
   
   set "TARGET_DIR=%~dp0"
-  cd /d "D:\_CampusLife\ProjectCampus\6ProjectPribadi\TidyFile"
+  cd /d "<TidyFile_Directory>"
   ".venv\Scripts\python.exe" -m src.main --path "%TARGET_DIR%"
   pause
   ```

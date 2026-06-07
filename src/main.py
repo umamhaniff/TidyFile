@@ -2,6 +2,7 @@ import argparse
 import logging
 import sys
 from pathlib import Path
+from src import __version__
 from src.config_manager import ConfigManager
 from src.core import FileOrganizer
 
@@ -33,6 +34,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="TidyFile: Central file organization utility.")
     parser.add_argument("--watch", action="store_true", help="Menjalankan monitoring real-time di background.")
     parser.add_argument("--path", type=str, help="Path folder spesifik yang ingin dirapikan (mengabaikan target_folders di config.json).")
+    parser.add_argument("-v", "--version", action="version", version=f"TidyFile v{__version__}")
     return parser.parse_args()
 
 

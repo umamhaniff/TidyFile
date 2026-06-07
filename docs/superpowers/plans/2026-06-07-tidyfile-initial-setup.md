@@ -634,7 +634,7 @@
   
   ```bat
   @echo off
-  cd /d "D:\_CampusLife\ProjectCampus\6ProjectPribadi\TidyFile"
+  cd /d "<TidyFile_Directory>"
   ".venv\Scripts\python.exe" -m src.main
   pause
   ```
@@ -644,7 +644,7 @@
   
   ```vbs
   Set WshShell = CreateObject("WScript.Shell")
-  WshShell.Run "cmd.exe /c cd /d D:\_CampusLife\ProjectCampus\6ProjectPribadi\TidyFile && .venv\Scripts\python.exe -m src.main --watch", 0, False
+  WshShell.Run "cmd.exe /c cd /d <TidyFile_Directory> && .venv\Scripts\python.exe -m src.main --watch", 0, False
   Set WshShell = Nothing
   ```
 
@@ -712,7 +712,7 @@
   3. Beri nama: `TidyFile Cleanup`.
   4. Atur Trigger: `Daily` (misal jam 16:00) atau `When I log on`.
   5. Action: `Start a program`.
-  6. Program/script: `D:\_CampusLife\ProjectCampus\6ProjectPribadi\TidyFile\scripts\run_once.bat`.
+  6. Program/script: `<TidyFile_Directory>\scripts\run_once.bat`.
   7. Klik **Finish**.
   ```
 

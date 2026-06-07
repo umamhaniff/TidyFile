@@ -12,7 +12,7 @@ TidyFile is a modular Python command-line utility and background service to clea
 ---
 
 ## Workspace Layout
-* [docs/superpowers/specs/2026-06-07-tidyfile-design.md](file:///D:/_CampusLife/ProjectCampus/6ProjectPribadi/TidyFile/docs/superpowers/specs/2026-06-07-tidyfile-design.md): Design Specification
+* [docs/superpowers/specs/2026-06-07-tidyfile-design.md](docs/superpowers/specs/2026-06-07-tidyfile-design.md): Design Specification
 * `src/`: Core Python modules
 * `tests/`: Testing suites
 * `scripts/`: Batch and VBS helper scripts

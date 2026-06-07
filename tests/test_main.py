@@ -20,6 +20,12 @@ class TestMainCLI(unittest.TestCase):
             args = parse_args()
             self.assertEqual(args.path, 'some/dir')
 
+    def test_parse_args_version(self):
+        with patch.object(sys, 'argv', ['main.py', '--version']):
+            with self.assertRaises(SystemExit) as cm:
+                parse_args()
+            self.assertEqual(cm.exception.code, 0)
+
 
 class TestMainExecution(unittest.TestCase):
     @patch('src.main.ConfigManager')

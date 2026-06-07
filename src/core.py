@@ -51,6 +51,7 @@ class FileOrganizer:
             "run_once.bat", 
             "run_watcher.vbs", 
             "tidy_here.bat",
+            "setup.bat",
             "config.json", 
             "config.json.example", 
             "tidyfile.log",
