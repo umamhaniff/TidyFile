@@ -1,0 +1,19 @@
+# Virtual environment
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Project configurations and outputs
+config.json
+tidyfile.log
+
+# Local guides and documents (ignored as requested)
+LOCAL_GUIDE.md
+
+# VS Code and temporary files
+.vscode/
+.idea/
+*.tmp
+*.crdownload
+*.part
