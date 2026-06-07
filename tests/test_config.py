@@ -41,3 +41,23 @@ class TestConfigManager(unittest.TestCase):
         self.assertTrue(len(cm.target_folders) >= 0)
         self.assertEqual(cm.default_category, "Others")
 
+    def test_path_expansion(self):
+        import os
+        from unittest.mock import patch
+        
+        config_data = {
+            "target_folders": ["~/Downloads", "%TEST_ENV_VAR%/Subdir"],
+            "categories": {},
+            "default_category": "Others"
+        }
+        with open(self.config_path, "w") as f:
+            json.dump(config_data, f)
+            
+        with patch.dict(os.environ, {"TEST_ENV_VAR": "C:/MockPath"}):
+            cm = ConfigManager(self.config_path)
+            # Check ~ expansion
+            expected_home = Path.home() / "Downloads"
+            self.assertEqual(cm.target_folders[0], expected_home)
+            # Check env var expansion
+            self.assertEqual(cm.target_folders[1], Path("C:/MockPath/Subdir"))
+

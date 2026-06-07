@@ -41,6 +41,11 @@ class ConfigManager:
             self._apply_dict(DEFAULT_CONFIG)
 
     def _apply_dict(self, data: dict):
-        self.target_folders = [Path(p) for p in data.get("target_folders", [])]
+        import os
+        self.target_folders = []
+        for p in data.get("target_folders", []):
+            expanded_var = os.path.expandvars(str(p))
+            expanded_path = Path(expanded_var).expanduser()
+            self.target_folders.append(expanded_path)
         self.categories = data.get("categories", {})
         self.default_category = data.get("default_category", "Others")
