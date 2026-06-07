@@ -85,7 +85,7 @@ class TestFileOrganizer(unittest.TestCase):
         self.assertEqual(renamed_file.read_text(), "version 2")
 
     def test_organize_ignores_tidyfile_scripts(self):
-        # Create TidyFile scripts in source dir
+        # Create TidyFile scripts and project config files in source dir
         script_file = self.src_dir / "run_once.bat"
         script_file.write_text("echo run once")
         
@@ -95,12 +95,20 @@ class TestFileOrganizer(unittest.TestCase):
         config_file = self.src_dir / "config.json"
         config_file.write_text("{}")
         
+        req_file = self.src_dir / "requirements.txt"
+        req_file.write_text("watchdog")
+        
+        gitignore_file = self.src_dir / ".gitignore"
+        gitignore_file.write_text(".venv")
+        
         self.organizer.organize_folder(self.src_dir)
         
         # They should NOT be moved
         self.assertTrue(script_file.exists())
         self.assertTrue(tidy_here_file.exists())
         self.assertTrue(config_file.exists())
+        self.assertTrue(req_file.exists())
+        self.assertTrue(gitignore_file.exists())
         
         # Verify no "Code_and_Projects" or "Others" subdirectories were created
         self.assertFalse((self.src_dir / "Code_and_Projects").exists())

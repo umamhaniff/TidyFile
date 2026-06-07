@@ -56,7 +56,9 @@ class FileOrganizer:
             "tidyfile.log",
             "local_guide.md", 
             "readme.md", 
-            "gemini.md"
+            "gemini.md",
+            "requirements.txt",
+            ".gitignore"
         ]:
             return
 
