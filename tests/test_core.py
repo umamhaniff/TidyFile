@@ -89,6 +89,9 @@ class TestFileOrganizer(unittest.TestCase):
         script_file = self.src_dir / "run_once.bat"
         script_file.write_text("echo run once")
         
+        tidy_here_file = self.src_dir / "tidy_here.bat"
+        tidy_here_file.write_text("echo tidy here")
+        
         config_file = self.src_dir / "config.json"
         config_file.write_text("{}")
         
@@ -96,6 +99,7 @@ class TestFileOrganizer(unittest.TestCase):
         
         # They should NOT be moved
         self.assertTrue(script_file.exists())
+        self.assertTrue(tidy_here_file.exists())
         self.assertTrue(config_file.exists())
         
         # Verify no "Code_and_Projects" or "Others" subdirectories were created

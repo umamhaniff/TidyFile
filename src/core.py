@@ -50,6 +50,7 @@ class FileOrganizer:
         if file_path.name.lower() in [
             "run_once.bat", 
             "run_watcher.vbs", 
+            "tidy_here.bat",
             "config.json", 
             "config.json.example", 
             "tidyfile.log",
