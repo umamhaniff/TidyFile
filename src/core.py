@@ -46,6 +46,19 @@ class FileOrganizer:
         if file_path.suffix.lower() in [".crdownload", ".part", ".tmp"]:
             return
 
+        # Ignore TidyFile project files if they are located in the target directory
+        if file_path.name.lower() in [
+            "run_once.bat", 
+            "run_watcher.vbs", 
+            "config.json", 
+            "config.json.example", 
+            "tidyfile.log",
+            "local_guide.md", 
+            "readme.md", 
+            "gemini.md"
+        ]:
+            return
+
         category = self.get_category(file_path)
         dest_folder = file_path.parent / category
         dest_folder.mkdir(exist_ok=True)

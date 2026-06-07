@@ -82,3 +82,22 @@ class TestFileOrganizer(unittest.TestCase):
         renamed_file = dest_dir / "tugas_1.pdf"
         self.assertTrue(renamed_file.exists())
         self.assertEqual(renamed_file.read_text(), "version 2")
+
+    def test_organize_ignores_tidyfile_scripts(self):
+        # Create TidyFile scripts in source dir
+        script_file = self.src_dir / "run_once.bat"
+        script_file.write_text("echo run once")
+        
+        config_file = self.src_dir / "config.json"
+        config_file.write_text("{}")
+        
+        self.organizer.organize_folder(self.src_dir)
+        
+        # They should NOT be moved
+        self.assertTrue(script_file.exists())
+        self.assertTrue(config_file.exists())
+        
+        # Verify no "Code_and_Projects" or "Others" subdirectories were created
+        self.assertFalse((self.src_dir / "Code_and_Projects").exists())
+        self.assertFalse((self.src_dir / "Others").exists())
+
