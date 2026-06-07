@@ -32,7 +32,9 @@ def setup_logging():
 def parse_args():
     parser = argparse.ArgumentParser(description="TidyFile: Central file organization utility.")
     parser.add_argument("--watch", action="store_true", help="Menjalankan monitoring real-time di background.")
+    parser.add_argument("--path", type=str, help="Path folder spesifik yang ingin dirapikan (mengabaikan target_folders di config.json).")
     return parser.parse_args()
+
 
 def main():
     logger = setup_logging()
@@ -48,8 +50,13 @@ def main():
         start_watcher(config, organizer)
     else:
         logger.info("Memulai TidyFile dalam mode Sekali Jalan (One-off)...")
-        for folder in config.target_folders:
-            organizer.organize_folder(folder)
+        if args.path:
+            specific_path = Path(args.path).resolve()
+            logger.info(f"Target spesifik dari argumen --path: {specific_path}")
+            organizer.organize_folder(specific_path)
+        else:
+            for folder in config.target_folders:
+                organizer.organize_folder(folder)
         logger.info("TidyFile selesai merapikan file.")
 
     return 0
