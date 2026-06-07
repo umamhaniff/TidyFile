@@ -104,13 +104,15 @@ Salin file `config.json.example` menjadi `config.json` pada root direktori proje
 ## 💻 Cara Penggunaan
 
 ### Mode A: Eksekusi Sekali Jalan (One-Off)
-Digunakan untuk merapikan folder target saat ini juga kemudian program langsung berhenti.
+Digunakan untuk merapikan folder target saat ini juga kemudian program langsung berhenti. Terdapat beberapa cara eksekusi:
 - **Melalui Python:**
   ```powershell
   python -m src.main
   ```
-- **Melalui Shortcut Windows:**
-  Double-click file `scripts/run_once.bat`. Kamu bisa memindahkan atau menduplikat file `.bat` ini ke Desktop untuk kemudahan akses.
+- **Melalui Shortcut Windows (Terpusat):**
+  Double-click file `scripts/run_once.bat`. Ini akan merapikan seluruh folder target yang telah didefinisikan pada file `config.json` (dalam array `"target_folders"`). Kamu bisa menduplikat file `.bat` ini ke Desktop untuk kemudahan akses.
+- **Melalui Portabel Batch (Lokal):**
+  Salin file `tidy_here.bat` (yang ada di root direktori) ke dalam folder apa pun yang ingin kamu rapikan (misalnya folder kerja tertentu di drive lain), lalu double-click file tersebut. Script ini secara otomatis akan mendeteksi dan merapikan folder tempat ia diletakkan saat itu juga.
 
 ### Mode B: Eksekusi Real-time (Background Watchdog)
 Program akan standby di latar belakang dan merapikan file secara instan begitu ada file baru masuk ke folder target.
