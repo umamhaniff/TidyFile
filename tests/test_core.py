@@ -127,3 +127,90 @@ class TestFileOrganizer(unittest.TestCase):
             
         self.assertTrue(file_path.exists())
 
+    def test_calculate_hash_exception(self):
+        # Pass a non-existent path to trigger an Exception in calculate_hash
+        h = self.organizer.calculate_hash(self.src_dir / "non_existent.txt")
+        self.assertEqual(h, "")
+
+    def test_process_file_with_directory(self):
+        # Creating a directory inside Downloads
+        subdir = self.src_dir / "Subfolder"
+        subdir.mkdir()
+        
+        # Calling process_file on a directory should return immediately
+        self.organizer.process_file(subdir)
+        self.assertTrue(subdir.exists())
+        self.assertFalse((self.src_dir / "Others" / "Subfolder").exists())
+
+    def test_process_file_temp_extensions(self):
+        # Temp file
+        temp_file = self.src_dir / "download.crdownload"
+        temp_file.write_text("partial data")
+        
+        self.organizer.process_file(temp_file)
+        self.assertTrue(temp_file.exists())
+        self.assertFalse((self.src_dir / "Others" / "download.crdownload").exists())
+
+    def test_process_file_unlink_permission_error(self):
+        # Target file exists
+        dest_dir = self.src_dir / "Documents"
+        dest_dir.mkdir()
+        dest_file = dest_dir / "tugas.pdf"
+        dest_file.write_text("same content")
+        
+        # Source file (duplicate)
+        src_file = self.src_dir / "tugas.pdf"
+        src_file.write_text("same content")
+        
+        # Mock unlink to throw PermissionError
+        with patch.object(Path, 'unlink', side_effect=PermissionError("Permission denied")):
+            with patch('src.core.logger') as mock_logger:
+                self.organizer.process_file(src_file)
+                mock_logger.warning.assert_called_once_with(
+                    f'Gagal menghapus duplikat "{src_file.name}": File sedang dibuka oleh program lain.'
+                )
+        self.assertTrue(src_file.exists())
+
+    def test_process_file_move_permission_error(self):
+        src_file = self.src_dir / "tugas.pdf"
+        src_file.write_text("some content")
+        
+        with patch('shutil.move', side_effect=PermissionError("File locked")):
+            with patch('src.core.logger') as mock_logger:
+                self.organizer.process_file(src_file)
+                mock_logger.warning.assert_called_once_with(
+                    f'Gagal memindahkan "{src_file.name}": File sedang dibuka oleh program lain atau sedang di-download.'
+                )
+        self.assertTrue(src_file.exists())
+
+    def test_process_file_move_general_exception(self):
+        src_file = self.src_dir / "tugas.pdf"
+        src_file.write_text("some content")
+        
+        with patch('shutil.move', side_effect=RuntimeError("Disk failure")):
+            with patch('src.core.logger') as mock_logger:
+                self.organizer.process_file(src_file)
+                mock_logger.error.assert_called_once_with(
+                    f'Gagal memproses file "{src_file.name}": Disk failure'
+                )
+        self.assertTrue(src_file.exists())
+
+    def test_organize_folder_not_exist(self):
+        non_existent_folder = self.root / "MissingFolder"
+        with patch('src.core.logger') as mock_logger:
+            self.organizer.organize_folder(non_existent_folder)
+            mock_logger.error.assert_called_once_with(
+                f'Folder target "{non_existent_folder}" tidak ditemukan.'
+            )
+
+    def test_organize_folder_empty(self):
+        # Empty source directory
+        empty_dir = self.root / "EmptyFolder"
+        empty_dir.mkdir()
+        
+        with patch('src.core.logger') as mock_logger:
+            self.organizer.organize_folder(empty_dir)
+            mock_logger.info.assert_any_call(
+                f'Folder "{empty_dir.name}" sudah bersih. Tidak ada file untuk dirapikan.'
+            )
+

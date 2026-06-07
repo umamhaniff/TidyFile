@@ -64,4 +64,51 @@ class TestMainExecution(unittest.TestCase):
             mock_organizer.organize_folder.assert_any_call(Path("default/dir2"))
             self.assertEqual(mock_organizer.organize_folder.call_count, 2)
 
+    @patch('src.main.ConfigManager')
+    @patch('src.main.FileOrganizer')
+    @patch('src.main.setup_logging')
+    @patch('src.watcher.start_watcher')
+    def test_main_watch_mode(self, mock_start_watcher, mock_setup_logging, mock_file_organizer_cls, mock_config_manager_cls):
+        mock_organizer = MagicMock()
+        mock_file_organizer_cls.return_value = mock_organizer
+        
+        mock_config = MagicMock()
+        mock_config_manager_cls.return_value = mock_config
+        
+        with patch.object(sys, 'argv', ['main.py', '--watch']):
+            exit_code = main()
+            self.assertEqual(exit_code, 0)
+            mock_start_watcher.assert_called_once_with(mock_config, mock_organizer)
+
+    def test_setup_logging(self):
+        from src.main import setup_logging
+        import logging
+        
+        # Call setup_logging
+        logger = setup_logging()
+        self.assertEqual(logger.name, "TidyFile")
+        self.assertEqual(logger.level, logging.INFO)
+        # Check handlers
+        self.assertTrue(any(isinstance(h, logging.FileHandler) for h in logger.handlers))
+        self.assertTrue(any(isinstance(h, logging.StreamHandler) for h in logger.handlers))
+        
+        # Close the handlers to avoid ResourceWarning
+        for h in list(logger.handlers):
+            h.close()
+            logger.removeHandler(h)
+
+    @patch('src.config_manager.ConfigManager')
+    @patch('src.core.FileOrganizer')
+    def test_main_entry_point(self, mock_organizer_cls, mock_config_cls):
+        import runpy
+        mock_config = mock_config_cls.return_value
+        mock_config.target_folders = []
+        
+        with patch.object(sys, 'argv', ['main.py']):
+            runpy.run_module('src.main', run_name='__main__')
+            
+        mock_config_cls.assert_called_once()
+        mock_organizer_cls.assert_called_once_with(mock_config)
+
+
 

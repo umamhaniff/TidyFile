@@ -10,7 +10,9 @@ def setup_logging():
     logger = logging.getLogger("TidyFile")
     logger.setLevel(logging.INFO)
     
-    # Clear existing handlers
+    # Close and clear existing handlers to avoid ResourceWarning
+    for h in list(logger.handlers):
+        h.close()
     logger.handlers = []
 
     # Formatter

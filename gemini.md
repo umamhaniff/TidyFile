@@ -42,5 +42,10 @@ Here are the commands defined for this project:
   ```
 * **Run Tests:**
   ```powershell
-  python -m unittest tests/test_core.py
+  python -m unittest discover -s tests
+  ```
+* **Run Tests with Coverage:**
+  ```powershell
+  .venv\Scripts\python -m coverage run -m unittest discover -s tests
+  .venv\Scripts\python -m coverage report -m
   ```

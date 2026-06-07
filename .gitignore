@@ -17,3 +17,7 @@ LOCAL_GUIDE.md
 *.tmp
 *.crdownload
 *.part
+.coverage
+.coverage.*
+htmlcov/
+
