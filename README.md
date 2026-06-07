@@ -1,6 +1,6 @@
 # 🧹 TidyFile Central Organizer
 
-[![Latest Release](https://img.shields.io/github/v/release/umamhaniff/TidyFile?color=brightgreen&label=version)](https://github.com/umamhaniff/TidyFile/releases)
+[![Latest Tag](https://img.shields.io/github/v/tag/umamhaniff/TidyFile?color=brightgreen&label=version)](https://github.com/umamhaniff/TidyFile/tags)
 [![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-lightgrey.svg)](https://www.microsoft.com/windows)
 [![Dependencies](https://img.shields.io/badge/dependencies-watchdog-orange.svg)](https://github.com/gorakhargosh/watchdog)
