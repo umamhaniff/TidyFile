@@ -2,6 +2,7 @@ import unittest
 import tempfile
 import shutil
 from pathlib import Path
+from unittest.mock import patch
 from src.core import FileOrganizer
 from src.config_manager import ConfigManager
 
@@ -100,4 +101,17 @@ class TestFileOrganizer(unittest.TestCase):
         # Verify no "Code_and_Projects" or "Others" subdirectories were created
         self.assertFalse((self.src_dir / "Code_and_Projects").exists())
         self.assertFalse((self.src_dir / "Others").exists())
+
+    def test_organize_non_directory(self):
+        # Create a file instead of a directory
+        file_path = self.src_dir / "not_a_dir.txt"
+        file_path.write_text("just a file")
+        
+        with patch('src.core.logger') as mock_logger:
+            self.organizer.organize_folder(file_path)
+            mock_logger.error.assert_called_once_with(
+                f'Folder target "{file_path}" bukan merupakan direktori.'
+            )
+            
+        self.assertTrue(file_path.exists())
 

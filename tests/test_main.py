@@ -1,7 +1,8 @@
 import unittest
 import sys
-from unittest.mock import patch
-from src.main import parse_args
+from pathlib import Path
+from unittest.mock import patch, MagicMock
+from src.main import parse_args, main
 
 class TestMainCLI(unittest.TestCase):
     def test_parse_args_default(self):
@@ -15,14 +16,10 @@ class TestMainCLI(unittest.TestCase):
             self.assertTrue(args.watch)
 
     def test_parse_args_path(self):
-        with patch.object(sys, 'argv', ['main.py', '--path', 'C:\\some\\dir']):
+        with patch.object(sys, 'argv', ['main.py', '--path', 'some/dir']):
             args = parse_args()
-            self.assertEqual(args.path, 'C:\\some\\dir')
+            self.assertEqual(args.path, 'some/dir')
 
-
-from pathlib import Path
-from unittest.mock import MagicMock
-from src.main import main
 
 class TestMainExecution(unittest.TestCase):
     @patch('src.main.ConfigManager')
@@ -33,14 +30,14 @@ class TestMainExecution(unittest.TestCase):
         mock_file_organizer_cls.return_value = mock_organizer
         
         mock_config = MagicMock()
-        mock_config.target_folders = [Path("C:\\default\\dir")]
+        mock_config.target_folders = [Path("default/dir")]
         mock_config_manager_cls.return_value = mock_config
         
-        with patch.object(sys, 'argv', ['main.py', '--path', 'C:\\some\\dir']):
+        with patch.object(sys, 'argv', ['main.py', '--path', 'some/dir']):
             exit_code = main()
             self.assertEqual(exit_code, 0)
             # Should resolve the path
-            resolved_path = Path('C:\\some\\dir').resolve()
+            resolved_path = Path('some/dir').resolve()
             mock_organizer.organize_folder.assert_called_once_with(resolved_path)
 
     @patch('src.main.ConfigManager')
@@ -51,14 +48,14 @@ class TestMainExecution(unittest.TestCase):
         mock_file_organizer_cls.return_value = mock_organizer
         
         mock_config = MagicMock()
-        mock_config.target_folders = [Path("C:\\default\\dir1"), Path("C:\\default\\dir2")]
+        mock_config.target_folders = [Path("default/dir1"), Path("default/dir2")]
         mock_config_manager_cls.return_value = mock_config
         
         with patch.object(sys, 'argv', ['main.py']):
             exit_code = main()
             self.assertEqual(exit_code, 0)
-            mock_organizer.organize_folder.assert_any_call(Path("C:\\default\\dir1"))
-            mock_organizer.organize_folder.assert_any_call(Path("C:\\default\\dir2"))
+            mock_organizer.organize_folder.assert_any_call(Path("default/dir1"))
+            mock_organizer.organize_folder.assert_any_call(Path("default/dir2"))
             self.assertEqual(mock_organizer.organize_folder.call_count, 2)
 
 

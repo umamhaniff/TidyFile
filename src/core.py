@@ -96,6 +96,9 @@ class FileOrganizer:
         if not folder_path.exists():
             logger.error(f"Folder target \"{folder_path}\" tidak ditemukan.")
             return
+        if not folder_path.is_dir():
+            logger.error(f"Folder target \"{folder_path}\" bukan merupakan direktori.")
+            return
 
         logger.info(f"Memulai pemindaian folder target: {folder_path}...")
         
