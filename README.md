@@ -151,19 +151,10 @@ python -m unittest discover tests
 
 ---
 
-## 🏷️ Versioning & Git Tags
+## 🏷️ Versi Aplikasi
 
-Project ini menggunakan standar [Semantic Versioning (SemVer)](https://semver.org/). Untuk menandai rilis versi baru, buat tag Git dan push ke repositori:
+Aplikasi ini menggunakan standar [Semantic Versioning (SemVer)](https://semver.org/). Kamu bisa memeriksa versi aktif dari TidyFile melalui CLI dengan perintah:
 
-```powershell
-# Membuat tag versi baru
-git tag -a v1.0.0 -m "Release version 1.0.0"
-
-# Mengirim tag ke repositori remote (GitHub)
-git push origin v1.0.0
-```
-
-Kamu juga bisa memeriksa versi aktif aplikasi melalui CLI dengan perintah:
 ```powershell
 python -m src.main --version
 ```
