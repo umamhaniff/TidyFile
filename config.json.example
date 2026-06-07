@@ -6,20 +6,22 @@
     "Documents": [
       ".pdf", ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt", 
       ".txt", ".rtf", ".odt", ".ods", ".odp", ".csv", ".md", 
-      ".pages", ".numbers", ".key", ".epub", ".mobi", ".gdoc", ".gsheet"
+      ".pages", ".numbers", ".key", ".epub", ".mobi", ".azw", ".azw3", 
+      ".gdoc", ".gsheet", ".gslides", ".wps", ".wpt", ".dps"
     ],
     "Data_and_Models": [
       ".json", ".parquet", ".pkl", ".sqlite", ".db", ".db3", 
       ".tsv", ".yaml", ".yml", ".xml", ".h5", ".feather", 
-      ".pb", ".onnx", ".tflite", ".bin"
+      ".pb", ".onnx", ".tflite", ".bin", ".hdf5", ".mat", ".csv"
     ],
     "Code_and_Projects": [
       ".py", ".ipynb", ".sql", ".js", ".ts", ".html", ".css", 
       ".c", ".cpp", ".h", ".cs", ".java", ".kt", ".swift", 
-      ".dart", ".sh", ".bat", ".ps1", ".go", ".rs", ".php", ".rb"
+      ".dart", ".sh", ".bat", ".ps1", ".go", ".rs", ".php", ".rb",
+      ".json", ".xml", ".yaml", ".yml"
     ],
     "BI_and_Design_Links": [
-      ".twbx", ".twb", ".pbix", ".pbit", ".fig", ".xd", ".sketch"
+      ".twbx", ".twb", ".pbix", ".pbit", ".fig", ".xd", ".sketch", ".cdr"
     ],
     "Images": [
       ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".webp", 
@@ -27,11 +29,15 @@
     ],
     "Audio_and_Video": [
       ".mp4", ".mkv", ".avi", ".mov", ".webm", ".flv", ".wmv", ".3gp", 
-      ".mp3", ".wav", ".m4a", ".flac", ".aac", ".ogg", ".wma", ".opus"
+      ".mpeg", ".mpg", ".m4v", ".mp3", ".wav", ".m4a", ".flac", ".aac", 
+      ".ogg", ".wma", ".opus", ".mid", ".midi", ".amr"
     ],
     "Compressed_and_Packages": [
-      ".zip", ".rar", ".7z", ".tar", ".gz", ".iso", 
+      ".zip", ".rar", ".7z", ".tar", ".gz", ".iso", ".cab", ".img",
       ".dmg", ".pkg", ".apk", ".aab", ".ipa", ".exe", ".msi"
+    ],
+    "Fonts": [
+      ".ttf", ".otf", ".woff", ".woff2", ".eot"
     ]
   },
   "default_category": "Others"
