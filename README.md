@@ -71,18 +71,13 @@ TidyFile/
 ### 1. Prasyarat
 Pastikan komputer kamu sudah terinstall **Python 3.x**.
 
-### 2. Setup Virtual Environment & Install Dependensi
-Buka Terminal/PowerShell di direktori project, lalu jalankan perintah berikut:
-```powershell
-# Buat virtual environment
-python -m venv .venv
+### 2. Setup Project (Rekomendasi)
+Cara tercepat untuk memulai adalah dengan menjalankan script setup otomatis:
+1. Double-click file `setup.bat` di root direktori project.
+2. Script ini akan secara otomatis membuat virtual environment (`.venv`), menginstall semua pustaka dependensi yang dibutuhkan (`requirements.txt`), serta mendaftarkan path project ke dalam environment variable (`TIDYFILE_DIR`).
+3. Buka jendela terminal/PowerShell baru agar konfigurasi ini aktif.
 
-# Aktivasi virtual environment
-.venv\Scripts\Activate.ps1
-
-# Install pustaka watchdog
-pip install -r requirements.txt
-```
+*Catatan: Jika Anda ingin melakukan setup secara manual, Anda bisa membuat virtual environment (`python -m venv .venv`), mengaktifkannya, dan menjalankan `pip install -r requirements.txt` secara mandiri.*
 
 ### 3. Setup Konfigurasi Kategori
 Salin file `config.json.example` menjadi `config.json` pada root direktori project:
