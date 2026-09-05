@@ -10,6 +10,7 @@ tidyfile.log
 
 # Local guides and documents (ignored as requested)
 LOCAL_GUIDE.md
+typing.md
 
 # VS Code and temporary files
 .vscode/
@@ -21,3 +22,6 @@ LOCAL_GUIDE.md
 .coverage.*
 htmlcov/
 
+
+# Graphify
+graphify-out/
