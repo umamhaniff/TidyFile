@@ -1,14 +1,15 @@
 @echo off
-:: TidyFile - Script untuk merapikan folder tempat file .bat ini diletakkan.
+setlocal enabledelayedexpansion
+:: ============================================================================
+:: TIDYFILE SUITE - Interactive Quick Menu (Tidy File, Workstation, Moment)
 :: Salin file ini ke folder mana saja, lalu klik dua kali untuk merapikannya!
+:: ============================================================================
 
 set "TARGET_DIR=%~dp0"
-:: Replace backslashes with forward slashes to prevent escaping issues while preserving drive roots (e.g. D:/)
 set "TARGET_DIR=%TARGET_DIR:\=/%"
 
 :: Cek apakah TIDYFILE_DIR terdefinisi
 if "%TIDYFILE_DIR%"=="" (
-    :: Fallback: jika dijalankan langsung di root project
     if exist "%~dp0.venv\Scripts\python.exe" (
         set "TIDYFILE_DIR=%~dp0"
     ) else (
@@ -33,5 +34,50 @@ if not exist ".venv\Scripts\python.exe" (
     exit /b 1
 )
 
-".venv\Scripts\python.exe" -m src.main --path "%TARGET_DIR%"
+:MENU
+cls
+echo ============================================================================
+echo                            TIDYFILE SUITE
+echo ============================================================================
+echo  Target Folder: %TARGET_DIR%
+echo ============================================================================
+echo  [1] Tidy File        - Rapikan Kategori & Ekstensi (Documents, Images, dll.)
+echo  [2] Tidy Workstation - Rapikan Dokumen Kerja ^(Workstation/YYYY/MM/DD^)
+echo  [3] Tidy Moment      - Rapikan Foto & Video ^(Moment/YYYY/MM/DD^)
+echo  [4] Keluar
+echo ============================================================================
+set /p CHOICE="Pilih mode [1-4]: "
+
+if "%CHOICE%"=="1" (
+    echo.
+    echo [INFO] Menjalankan Tidy File...
+    ".venv\Scripts\python.exe" -m src.main tidy --path "%TARGET_DIR%"
+    goto END
+)
+if "%CHOICE%"=="2" (
+    echo.
+    echo [INFO] Menjalankan Tidy Workstation...
+    ".venv\Scripts\python.exe" -m src.main workstation --path "%TARGET_DIR%"
+    goto END
+)
+if "%CHOICE%"=="3" (
+    echo.
+    echo [INFO] Menjalankan Tidy Moment...
+    ".venv\Scripts\python.exe" -m src.main moment --path "%TARGET_DIR%"
+    goto END
+)
+if "%CHOICE%"=="4" (
+    echo Membatalkan operasi.
+    exit /b 0
+)
+
+echo Pilihan tidak valid. Silakan masukkan angka 1-4.
+timeout /t 2 >nul
+goto MENU
+
+:END
+echo.
+echo ============================================================================
+echo Pembersihan selesai!
+echo ============================================================================
 pause

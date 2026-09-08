@@ -1,42 +1,48 @@
-# 🧹 TidyFile Central Organizer
+# 🧹 TidyFile Suite: Central Organizer & Moment Manager
 
 [![Latest Tag](https://img.shields.io/github/v/tag/umamhaniff/TidyFile?color=brightgreen&label=version)](https://github.com/umamhaniff/TidyFile/tags)
-[![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue.svg)](https://www.python.org/)
+[![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/platform-windows-lightgrey.svg)](https://www.microsoft.com/windows)
-[![Dependencies](https://img.shields.io/badge/dependencies-watchdog-orange.svg)](https://github.com/gorakhargosh/watchdog)
-[![Tests Status](https://img.shields.io/badge/tests-17%20passing-brightgreen.svg)](#-testing)
+[![Dependencies](https://img.shields.io/badge/dependencies-pillow%20%7C%20tinytag%20%7C%20hachoir%20%7C%20watchdog-orange.svg)](#)
+[![Tests Status](https://img.shields.io/badge/tests-53%20passing-brightgreen.svg)](#-testing)
 
-**TidyFile** adalah utilitas otomatisasi berbasis Python yang dirancang untuk merapikan direktori berantakan (seperti `Downloads`, `Desktop`, dll.) secara terpusat. Program ini memilah file ke dalam subfolder kategori terstruktur (seperti *Documents*, *Images*, *Code*, dsb.) berdasarkan ekstensi file secara cerdas dan aman.
+**TidyFile Suite** adalah utilitas otomatisasi modular berbasis Python yang dirancang untuk merapikan direktori berantakan (seperti `Downloads`, `Desktop`, folder foto/video, dokumen kerja, dll.) secara cerdas, aman, dan berkinerja tinggi.
 
 ---
 
-## ✨ Fitur Utama
+## 🌟 3 Mode Pengorganisasian Spesifik
 
-- 📦 **Arsitektur Modular & Bersih:** Pembagian tanggung jawab kode yang rapi (konfigurasi, logika inti, pemantauan, dan otomasi).
-- 🛡️ **Anti-Collision & Proteksi Duplikat (SHA-256):** Menghitung sidik jari digital (Hash) untuk menghapus file unduhan duplikat secara aman dan mencegah penimpaan file secara tidak sengaja.
+1. **📁 Tidy File (Core):**
+   * Merapikan file ke subfolder kategori (`Documents`, `Images`, `Code_and_Projects`, `Audio_and_Video`, `Data_and_Models`, dll.) berdasarkan ekstensi.
+2. **💼 Tidy Workstation:**
+   * Merapikan dokumen kerja berdasarkan tanggal metadata ke dalam hirarki `Workstation/YYYY/MM/DD/`.
+3. **📸 Tidy Moment:**
+   * Merapikan foto, video, dan audio dari berbagai format dan perangkat ke dalam hirarki `Moment/YYYY/MM/DD/`.
+
+---
+
+## 🔍 Pipeline Ekstraksi Tanggal 3-Tier (MetadataParser)
+
+Untuk mode **Tidy Workstation** dan **Tidy Moment**, sistem menggunakan alur cerdas 3-Tier:
+1. **Tier 1 (Embedded Metadata):**
+   * Foto: EXIF tag (`DateTimeOriginal` / `DateTimeDigitized` / `DateTime`) via Pillow & `pillow-heif` (dukungan format HEIC/Apple).
+   * Video & Audio: Atom container timestamps via `tinytag` & `hachoir`.
+2. **Tier 2 (Filename Pattern Matching):**
+   * WhatsApp: `IMG-YYYYMMDD-WA...`, `VID-YYYYMMDD-WA...`
+   * Kamera & Screenshot: `IMG_YYYYMMDD_...`, `Screenshot_YYYY-MM-DD...`, `PXL_YYYYMMDD_...`
+   * Pola ISO & Format Standar: `YYYY-MM-DD`, `YYYYMMDD`, `DD-MM-YYYY`
+3. **Tier 3 (Filesystem Timestamps):**
+   * Fallback otomatis ke modified / creation time filesystem (`os.path.getmtime`).
+
+---
+
+## ✨ Fitur Keamanan & Performa
+
+- 🛡️ **Anti-Collision & Proteksi Duplikat (SHA-256):** Menghapus file identik di root secara aman jika isi file 100% sama dengan file di tujuan.
 - 🔄 **Re-versioning Otomatis:** Mengubah nama file dengan indeks angka (misal: `laporan_1.pdf`) secara dinamis apabila namanya sama tetapi isinya berbeda.
-- ⏱️ **Deteksi Cooldown Browser:** Menunda pemrosesan file sementara unduhan browser (seperti `.crdownload` atau `.part`) hingga unduhan selesai 100% untuk mencegah korupsi data.
-- ⚙️ **Dua Mode Eksekusi:**
-  - **One-off Mode:** Pemindaian sekali jalan yang cocok dipadukan dengan *Windows Task Scheduler*.
-  - **Background Watchdog Mode:** Pemantauan real-time di latar belakang menggunakan Windows File System API dengan konsumsi resource yang sangat rendah.
-- 🔕 **Silent Execution:** Didukung script VBScript agar pemantauan background berjalan tanpa memunculkan jendela hitam CMD yang mengganggu.
-
----
-
-## 📋 Kategori & Format File yang Didukung
-
-TidyFile secara bawaan mendukung pembagian kategori file yang sangat luas dari berbagai sistem operasi (Windows, macOS, Android, iOS), desain kreatif, pemrograman, hingga data analitik:
-
-| Kategori | Deskripsi / Bidang | Contoh Ekstensi Format |
-|---|---|---|
-| 📄 **Documents** | Dokumen teks, e-book, perkantoran | `.pdf`, `.docx`, `.doc`, `.xlsx`, `.xls`, `.pptx`, `.ppt`, `.txt`, `.rtf`, `.odt`, `.csv`, `.md`, `.pages`, `.numbers`, `.key`, `.epub`, `.mobi`, `.azw3`, `.gdoc`, `.gsheet`, `.wps` |
-| 📊 **Data & Models** | Dataset analitik, database & model AI/ML | `.json`, `.parquet`, `.pkl`, `.sqlite`, `.db`, `.tsv`, `.yaml`, `.xml`, `.h5`, `.feather`, `.pb`, `.onnx`, `.tflite`, `.bin`, `.mat` |
-| 💻 **Code & Projects** | Source code & script pemrograman | `.py`, `.ipynb`, `.sql`, `.js`, `.ts`, `.html`, `.css`, `.c`, `.cpp`, `.h`, `.cs`, `.java`, `.kt`, `.swift`, `.dart`, `.sh`, `.bat`, `.ps1`, `.go`, `.rs`, `.php`, `.rb` |
-| 📈 **BI & Design Links** | Analisis data BI & link visual design | `.twbx`, `.twb`, `.pbix`, `.pbit`, `.fig`, `.xd`, `.sketch`, `.cdr` |
-| 🖼️ **Images** | Foto, ilustrasi, asset gambar & desain | `.png`, `.jpg`, `.jpeg`, `.gif`, `.bmp`, `.tiff`, `.webp`, `.heic`, `.heif`, `.psd`, `.ai`, `.svg`, raw format (`.cr2`, `.nef`) |
-| 🎵 **Audio & Video** | Rekaman suara, lagu, video & podcast | `.mp4`, `.mkv`, `.avi`, `.mov`, `.webm`, `.flv`, `.wmv`, `.3gp`, `.mp3`, `.wav`, `.m4a`, `.flac`, `.aac`, `.ogg`, `.opus`, `.amr` |
-| 📦 **Compressed & Packages** | File kompresi arsip, installer OS & aplikasi | `.zip`, `.rar`, `.7z`, `.tar`, `.gz`, `.iso`, `.cab`, `.img`, `.dmg`, `.pkg`, `.apk`, `.aab`, `.ipa`, `.exe`, `.msi` |
-| 🔤 **Fonts** | Typografi tulisan untuk desain & web | `.ttf`, `.otf`, `.woff`, `.woff2`, `.eot` |
+- ⏱️ **Deteksi Cooldown Browser:** Mengabaikan file sementara unduhan (`.crdownload`, `.part`, `.tmp`) hingga proses download selesai sempurna.
+- 🔕 **Silent Execution:** Didukung script VBScript (`scripts/run_watcher.vbs`) agar pemantauan background berjalan tanpa pop-up window CMD.
+- ⚡ **Lightweight (8GB RAM Safe):** Menggunakan lazy header parsing tanpa memuat dekompresi file penuh ke dalam memori RAM.
 
 ---
 
@@ -45,111 +51,95 @@ TidyFile secara bawaan mendukung pembagian kategori file yang sangat luas dari b
 ```text
 TidyFile/
 ├── src/
-│   ├── __init__.py          # Penanda paket python
-│   ├── main.py              # Entrypoint CLI & inisialisasi logger
-│   ├── config_manager.py    # Handler pemuatan file konfigurasi & fallback
-│   ├── core.py              # Logika utama (pemindahan, hashing, anti-collision)
+│   ├── __init__.py          # Penanda paket python & versi
+│   ├── main.py              # Entrypoint CLI, subcommand & interactive menu
+│   ├── metadata_parser.py   # 3-Tier Date Extractor (EXIF, Video, Regex, mtime)
+│   ├── config_manager.py    # Handler konfigurasi & fallback
+│   ├── core.py              # Logika BaseOrganizer, FileOrganizer, WorkstationOrganizer, MomentOrganizer
 │   └── watcher.py           # Pemantau real-time (Watchdog daemon)
 ├── tests/
 │   ├── __init__.py
-│   ├── test_config.py       # Unit test untuk konfigurasi
-│   ├── test_core.py         # Unit test untuk logika pemindahan & hash
-│   ├── test_main.py         # Unit test untuk CLI argument parsing
-│   └── test_watcher.py      # Unit test untuk event watcher
+│   ├── test_config.py       # Unit test konfigurasi
+│   ├── test_core.py         # Unit test logika perpindahan & hash
+│   ├── test_metadata_parser.py # Unit test ekstraksi metadata & regex
+│   ├── test_modes.py        # Unit test Workstation & Moment organizers
+│   ├── test_main.py         # Unit test CLI arguments & menu
+│   └── test_watcher.py      # Unit test event watcher
 ├── scripts/
-│   ├── run_once.bat         # Batch file eksekusi sekali jalan (portable)
-│   └── run_watcher.vbs      # VBScript eksekusi watchdog secara silent
-├── config.json.example      # Template konfigurasi kategori & ekstensi
+│   ├── run_once.bat         # Batch eksekusi sekali jalan
+│   └── run_watcher.vbs      # VBScript background watcher (silent)
+├── tidy_here.bat            # Quick batch menu interaktif portabel (1-4)
+├── setup.bat                # Installer environment otomatis
+├── requirements.txt         # Daftar dependency
+├── config.json.example      # Template konfigurasi
 ├── README.md                # Dokumentasi utama GitHub
-└── gemini.md                # Konteks persistent memori kecerdasan AI
+└── gemini.md                # Konteks persistent memori
 ```
 
 ---
 
 ## 🚀 Memulai (Quick Start)
 
-### 1. Prasyarat
-Pastikan komputer kamu sudah terinstall **Python 3.x**.
-
-### 2. Setup Project (Rekomendasi)
-Cara tercepat untuk memulai adalah dengan menjalankan script setup otomatis:
+### 1. Setup Project
+Cukup jalankan setup otomatis sekali:
 1. Double-click file `setup.bat` di root direktori project.
-2. Script ini akan secara otomatis membuat virtual environment (`.venv`), menginstall semua pustaka dependensi yang dibutuhkan (`requirements.txt`), serta mendaftarkan path project ke dalam environment variable (`TIDYFILE_DIR`).
-3. Buka jendela terminal/PowerShell baru agar konfigurasi ini aktif.
+2. Script akan membuat virtual environment `.venv`, menginstal semua library (`requirements.txt`), dan mendaftarkan `TIDYFILE_DIR`.
 
-*Catatan: Jika Anda ingin melakukan setup secara manual, Anda bisa membuat virtual environment (`python -m venv .venv`), mengaktifkannya, dan menjalankan `pip install -r requirements.txt` secara mandiri.*
-
-### 3. Setup Konfigurasi Kategori
-Salin file `config.json.example` menjadi `config.json` pada root direktori project:
+### 2. Konfigurasi Folder
+Salin `config.json.example` menjadi `config.json`:
 ```json
 {
   "target_folders": [
     "D:/Downloads"
-  ],
-  "categories": {
-    "Documents": [".pdf", ".docx", ".xlsx", ".csv", ".md"],
-    "Images": [".png", ".jpg", ".jpeg", ".webp", ".heic"]
-  },
-  "default_category": "Others"
+  ]
 }
 ```
-*Catatan: Kamu bisa mendaftarkan beberapa folder sekaligus pada `"target_folders"`.*
 
 ---
 
 ## 💻 Cara Penggunaan
 
-### Mode A: Eksekusi Sekali Jalan (One-Off)
-Digunakan untuk merapikan folder target saat ini juga kemudian program langsung berhenti. Terdapat beberapa cara eksekusi:
-- **Melalui Python:**
-  ```powershell
-  python -m src.main
-  ```
-- **Melalui Shortcut Windows (Terpusat):**
-  Double-click file `scripts/run_once.bat`. Ini akan merapikan seluruh folder target yang telah didefinisikan pada file `config.json` (dalam array `"target_folders"`). Kamu bisa menduplikat file `.bat` ini ke Desktop untuk kemudahan akses.
-- **Melalui Portabel Batch (Lokal):**
-  Salin file `tidy_here.bat` (yang ada di root direktori) ke dalam folder apa pun yang ingin kamu rapikan (misalnya folder kerja tertentu di drive lain), lalu double-click file tersebut. Script ini secara otomatis akan mendeteksi dan merapikan folder tempat ia diletakkan saat itu juga.
+### A. Quick Menu Interaktif Portabel (`tidy_here.bat`) ⭐ *Paling Praktis*
+Salin `tidy_here.bat` ke folder mana saja yang ingin kamu rapikan, lalu double-click:
+```text
+============================================================================
+                           TIDYFILE SUITE
+============================================================================
+ Target Folder: D:/FotoLiburan
+============================================================================
+ [1] Tidy File        - Rapikan Kategori & Ekstensi (Documents, Images, dll.)
+ [2] Tidy Workstation - Rapikan Dokumen Kerja (Workstation/YYYY/MM/DD)
+ [3] Tidy Moment      - Rapikan Foto & Video (Moment/YYYY/MM/DD)
+ [4] Keluar
+============================================================================
+Pilih mode [1-4]: 
+```
 
-### Mode B: Eksekusi Real-time (Background Watchdog)
-Program akan standby di latar belakang dan merapikan file secara instan begitu ada file baru masuk ke folder target.
-- **Melalui Python:**
-  ```powershell
-  python -m src.main --watch
-  ```
-- **Melalui Silent Execution (Tanpa Window CMD):**
-  Double-click file `scripts/run_watcher.vbs`. Program akan langsung berjalan di background secara tersembunyi.
+### B. Python CLI (Subcommands)
+```powershell
+# 1. Mode Tidy File
+python -m src.main tidy --path "D:/Target"
 
----
+# 2. Mode Tidy Workstation
+python -m src.main workstation --path "D:/Target"
 
-## 🕒 Windows Task Scheduler Setup (Set & Forget)
+# 3. Mode Tidy Moment
+python -m src.main moment --path "D:/Target"
 
-Agar folder kamu dirapikan secara otomatis (misal: setiap hari jam 4 sore):
-1. Buka **Task Scheduler** di Windows.
-2. Klik **Create Basic Task** pada panel kanan.
-3. Beri nama tugas: `TidyFile Auto Organizer`.
-4. Pilih Trigger: `Daily` (setiap hari) atau `When I log on` (setiap laptop dinyalakan).
-5. Pada bagian Action, pilih `Start a program`.
-6. Di kolom **Program/script**, arahkan ke file `.bat` absolut di komputer Anda (misal: jika diletakkan di `C:\TidyFile`):
-   `C:\TidyFile\scripts\run_once.bat`
-7. Klik **Finish**.
+# Mode Watchdog (Real-time Background)
+python -m src.main tidy --watch
+```
 
 ---
 
 ## 🧪 Testing
 
-Project ini dilengkapi dengan unit test menyeluruh menggunakan modul `unittest` bawaan Python. Semua pengujian menggunakan folder tiruan sementara (`tempfile`), sehingga aman dijalankan kapan saja tanpa merusak file asli kamu.
-
-Untuk menjalankan seluruh test suite:
+Semua unit test menggunakan folder tiruan sementara (`tempfile`) yang aman:
 ```powershell
-python -m unittest discover tests
-```
+# Jalankan seluruh test suite
+python -m unittest discover -s tests
 
----
-
-## 🏷️ Versi Aplikasi
-
-Aplikasi ini menggunakan standar [Semantic Versioning (SemVer)](https://semver.org/). Kamu bisa memeriksa versi aktif dari TidyFile melalui CLI dengan perintah:
-
-```powershell
-python -m src.main --version
+# Jalankan dengan coverage
+.venv\Scripts\python -m coverage run -m unittest discover -s tests
+.venv\Scripts\python -m coverage report -m
 ```

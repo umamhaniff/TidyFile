@@ -1,1 +1,5 @@
-watchdog==4.0.0
+watchdog>=4.0.0
+pillow>=11.0.0
+pillow-heif>=0.18.0
+tinytag>=2.0.0
+hachoir>=3.3.0
