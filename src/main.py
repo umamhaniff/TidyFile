@@ -41,15 +41,18 @@ def get_organizer_by_mode(mode: str, config: ConfigManager):
     else:
         return "tidy", FileOrganizer(config)
 
-def show_interactive_menu():
-    print("\n" + "=" * 52)
-    print("                  TIDYFILE SUITE")
-    print("=" * 52)
+def show_interactive_menu(target_folder: Path = None):
+    print("\n" + "=" * 58)
+    print("                      TIDYFILE SUITE")
+    print("=" * 58)
+    if target_folder:
+        print(f" Target Folder : {target_folder}")
+        print("=" * 58)
     print(" [1] Tidy File        (Organize by Category & Extension)")
     print(" [2] Tidy Workstation (Work Files -> Workstation/YYYY/MM/DD)")
     print(" [3] Tidy Moment      (Photos & Videos -> Moment/YYYY/MM/DD)")
     print(" [4] Keluar")
-    print("=" * 52)
+    print("=" * 58)
     
     choice = input("Pilih mode [1-4]: ").strip()
     if choice == "1":
@@ -82,22 +85,43 @@ def parse_args():
     return parser.parse_args()
 
 
+def resolve_config_path(args_path: str = None) -> Path:
+    if args_path:
+        target_cfg = Path(args_path).resolve() / "config.json"
+        if target_cfg.exists():
+            return target_cfg
+    cwd_config = Path.cwd() / "config.json"
+    if cwd_config.exists():
+        return cwd_config
+    if getattr(sys, 'frozen', False):
+        exe_dir_config = Path(sys.executable).parent / "config.json"
+        if exe_dir_config.exists():
+            return exe_dir_config
+    else:
+        project_root_config = Path(__file__).resolve().parent.parent / "config.json"
+        if project_root_config.exists():
+            return project_root_config
+    return cwd_config
+
 def main():
     logger = setup_logging()
     args = parse_args()
 
-    config_path = Path("config.json")
+    config_path = resolve_config_path(args.path)
     config = ConfigManager(config_path)
 
-    # Tentukan mode
+    is_interactive = False
     selected_mode = args.mode
+
     if selected_mode == "menu":
-        selected_mode = show_interactive_menu()
+        is_interactive = True
+        target_preview = Path(args.path).resolve() if args.path else Path.cwd()
+        selected_mode = show_interactive_menu(target_preview)
     elif selected_mode is None:
         if not args.watch and not args.path:
-            # Jika dijalankan tanpa argumen apapun di terminal interaktif
             if sys.stdin.isatty():
-                selected_mode = show_interactive_menu()
+                is_interactive = True
+                selected_mode = show_interactive_menu(Path.cwd())
             else:
                 selected_mode = "tidy"
         else:
@@ -116,10 +140,20 @@ def main():
             specific_path = Path(args.path).resolve()
             logger.info(f"Target spesifik dari argumen --path: {specific_path}")
             organizer.organize_folder(specific_path)
+        elif is_interactive:
+            current_path = Path.cwd().resolve()
+            logger.info(f"Target interaktif (current directory): {current_path}")
+            organizer.organize_folder(current_path)
         else:
             for folder in config.target_folders:
                 organizer.organize_folder(folder)
         logger.info(f"TidyFile [{mode_name}] selesai merapikan file.")
+
+    if is_interactive and getattr(sys, 'frozen', False):
+        try:
+            input("\n[SELESAI] Tekan Enter untuk keluar...")
+        except (EOFError, KeyboardInterrupt):
+            pass
 
     return 0
 

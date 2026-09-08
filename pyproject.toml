@@ -1,0 +1,30 @@
+[project]
+name = "tidyfile"
+version = "3.0.0"
+description = "Automated file organization utility with multi-mode sorting (Core, Workstation, Moment)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "watchdog>=4.0.0",
+    "pillow>=11.0.0",
+    "pillow-heif>=0.18.0",
+    "tinytag>=2.0.0",
+    "hachoir>=3.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "coverage>=7.0.0",
+    "pyinstaller>=6.0.0",
+]
+
+[project.scripts]
+tidyfile = "src.main:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

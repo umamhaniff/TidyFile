@@ -23,5 +23,12 @@ typing.md
 htmlcov/
 
 
+# Build and Distribution
+build/
+dist/
+*.spec
+*.egg-info/
+
 # Graphify
 graphify-out/
+

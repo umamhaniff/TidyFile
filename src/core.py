@@ -11,6 +11,8 @@ IGNORED_FILENAMES = {
     "run_watcher.vbs", 
     "tidy_here.bat",
     "setup.bat",
+    "build.bat",
+    "tidyfile.exe",
     "config.json", 
     "config.json.example", 
     "tidyfile.log",
@@ -18,6 +20,9 @@ IGNORED_FILENAMES = {
     "readme.md", 
     "gemini.md",
     "requirements.txt",
+    "pyproject.toml",
+    "uv.lock",
+    "tidyfile.spec",
     ".gitignore",
     "typing.md"
 }

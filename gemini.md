@@ -34,33 +34,36 @@ TidyFile Suite is a modular Python command-line utility and background service p
 
 ---
 
-## Specialized CLI Commands
-* **Activate Virtual Environment:**
+## Specialized CLI & UV Commands
+* **Install / Sync Dependencies with UV:**
   ```powershell
-  .venv\Scripts\Activate.ps1
+  uv sync --all-extras
   ```
-* **Run Tidy File:**
+* **Run Tests with Coverage (via UV):**
   ```powershell
-  python -m src.main tidy [--path "D:/Target"]
+  uv run coverage run -m unittest discover -s tests
+  uv run coverage report -m
+  ```
+* **Run Tidy File (CLI):**
+  ```powershell
+  uv run python -m src.main tidy [--path "D:/Target"]
   ```
 * **Run Tidy Workstation:**
   ```powershell
-  python -m src.main workstation [--path "D:/Target"]
+  uv run python -m src.main workstation [--path "D:/Target"]
   ```
 * **Run Tidy Moment:**
   ```powershell
-  python -m src.main moment [--path "D:/Target"]
+  uv run python -m src.main moment [--path "D:/Target"]
   ```
 * **Run Interactive Menu:**
   ```powershell
-  python -m src.main menu
+  uv run python -m src.main menu
   ```
-* **Run Watcher (Background Mode):**
+* **Build Portable Single .EXE:**
   ```powershell
-  python -m src.main tidy --watch
+  .\build.bat
+  # atau
+  uv run pyinstaller --noconfirm --clean --onefile --name tidyfile src/main.py
   ```
-* **Run Tests with Coverage:**
-  ```powershell
-  .venv\Scripts\python -m coverage run -m unittest discover -s tests
-  .venv\Scripts\python -m coverage report -m
-  ```
+

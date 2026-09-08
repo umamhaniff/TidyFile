@@ -9,10 +9,38 @@ DEFAULT_CONFIG = {
     "categories": {
         "Documents": [
             ".pdf", ".docx", ".doc", ".xlsx", ".xls", ".pptx", ".ppt", 
-            ".txt", ".rtf", ".odt", ".ods", ".odp", ".csv", ".md"
+            ".txt", ".rtf", ".odt", ".ods", ".odp", ".csv", ".md", 
+            ".pages", ".numbers", ".key", ".epub", ".mobi", ".azw", ".azw3", 
+            ".gdoc", ".gsheet", ".gslides", ".wps", ".wpt", ".dps"
+        ],
+        "Data_and_Models": [
+            ".json", ".parquet", ".pkl", ".sqlite", ".db", ".db3", 
+            ".tsv", ".yaml", ".yml", ".xml", ".h5", ".feather", 
+            ".pb", ".onnx", ".tflite", ".bin", ".hdf5", ".mat"
+        ],
+        "Code_and_Projects": [
+            ".py", ".ipynb", ".sql", ".js", ".ts", ".html", ".css", 
+            ".c", ".cpp", ".h", ".cs", ".java", ".kt", ".swift", 
+            ".dart", ".sh", ".bat", ".ps1", ".go", ".rs", ".php", ".rb"
+        ],
+        "BI_and_Design_Links": [
+            ".twbx", ".twb", ".pbix", ".pbit", ".fig", ".xd", ".sketch", ".cdr"
         ],
         "Images": [
-            ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".webp"
+            ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".webp", 
+            ".heic", ".heif", ".psd", ".ai", ".svg", ".raw", ".cr2", ".nef"
+        ],
+        "Audio_and_Video": [
+            ".mp4", ".mkv", ".avi", ".mov", ".webm", ".flv", ".wmv", ".3gp", 
+            ".mpeg", ".mpg", ".m4v", ".mp3", ".wav", ".m4a", ".flac", ".aac", 
+            ".ogg", ".wma", ".opus", ".mid", ".midi", ".amr"
+        ],
+        "Compressed_and_Packages": [
+            ".zip", ".rar", ".7z", ".tar", ".gz", ".iso", ".cab", ".img",
+            ".dmg", ".pkg", ".apk", ".aab", ".ipa", ".exe", ".msi"
+        ],
+        "Fonts": [
+            ".ttf", ".otf", ".woff", ".woff2", ".eot"
         ]
     },
     "default_category": "Others"
