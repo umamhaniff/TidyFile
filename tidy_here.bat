@@ -56,8 +56,8 @@ echo ===========================================================================
 echo  Target Folder : %TARGET_DIR%
 echo ============================================================================
 echo  [1] Tidy File        - Rapikan Kategori ^& Ekstensi (Documents, Images, dll.)
-echo  [2] Tidy Workstation - Rapikan Dokumen Kerja ^(Workstation/YYYY/MM/DD^)
-echo  [3] Tidy Moment      - Rapikan Foto ^& Video ^(Moment/YYYY/MM/DD^)
+echo  [2] Tidy Workstation - Rapikan Dokumen Kerja ^(Workstation-YYYY-MM-DD^)
+echo  [3] Tidy Moment      - Rapikan Foto ^& Video ^(Moment-YYYY-MM-DD^)
 echo  [4] Keluar
 echo ============================================================================
 set /p CHOICE="Pilih mode [1-4]: "

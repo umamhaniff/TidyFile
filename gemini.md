@@ -3,8 +3,8 @@
 ## Flow & Concept
 TidyFile Suite is a modular Python command-line utility and background service providing 3 specialized organization modes:
 1. **Tidy File (Core):** Cleans and categorizes files based on file extensions (Documents, Images, Code, etc.).
-2. **Tidy Workstation:** Organizes work/document files by metadata date into `Workstation/YYYY/MM/DD/`.
-3. **Tidy Moment:** Organizes photos and videos across formats and devices by EXIF/Video/Filename/Filesystem date into `Moment/YYYY/MM/DD/`.
+2. **Tidy Workstation:** Organizes work/document files by metadata date into flat folder `Workstation-YYYY-MM-DD/`.
+3. **Tidy Moment:** Organizes photos and videos across formats and devices by EXIF/Video/Filename/Filesystem date into flat folder `Moment-YYYY-MM-DD/`.
 
 ### Date Parsing Hierarchy (MetadataParser)
 1. **Tier 1 (Embedded Metadata):** Image EXIF (`Pillow`/`pillow-heif`), Video/Audio container atoms (`tinytag`), and universal fallback (`hachoir`).

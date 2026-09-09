@@ -49,8 +49,8 @@ def show_interactive_menu(target_folder: Path = None):
         print(f" Target Folder : {target_folder}")
         print("=" * 58)
     print(" [1] Tidy File        (Organize by Category & Extension)")
-    print(" [2] Tidy Workstation (Work Files -> Workstation/YYYY/MM/DD)")
-    print(" [3] Tidy Moment      (Photos & Videos -> Moment/YYYY/MM/DD)")
+    print(" [2] Tidy Workstation (Work Files -> Workstation-YYYY-MM-DD)")
+    print(" [3] Tidy Moment      (Photos & Videos -> Moment-YYYY-MM-DD)")
     print(" [4] Keluar")
     print("=" * 58)
     

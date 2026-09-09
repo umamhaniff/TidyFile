@@ -149,16 +149,16 @@ class FileOrganizer(BaseOrganizer):
 
 
 class WorkstationOrganizer(BaseOrganizer):
-    """Mode 2: Tidy Workstation - Merapikan dokumen kerja ke Workstation/YYYY/MM/DD/."""
+    """Mode 2: Tidy Workstation - Merapikan dokumen kerja ke Workstation-YYYY-MM-DD/."""
 
     def get_destination_folder(self, file_path: Path) -> Path:
         year, month, day = MetadataParser.extract_date(file_path)
-        return file_path.parent / "Workstation" / year / month / day
+        return file_path.parent / f"Workstation-{year}-{month}-{day}"
 
 
 class MomentOrganizer(BaseOrganizer):
-    """Mode 3: Tidy Moment - Merapikan foto & video ke Moment/YYYY/MM/DD/."""
+    """Mode 3: Tidy Moment - Merapikan foto & video ke Moment-YYYY-MM-DD/."""
 
     def get_destination_folder(self, file_path: Path) -> Path:
         year, month, day = MetadataParser.extract_date(file_path)
-        return file_path.parent / "Moment" / year / month / day
+        return file_path.parent / f"Moment-{year}-{month}-{day}"

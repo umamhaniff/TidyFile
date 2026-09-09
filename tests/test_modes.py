@@ -19,7 +19,7 @@ class TestOrganizersModes(unittest.TestCase):
 
         organizer.organize_folder(self.root)
 
-        expected_dest = self.root / "Workstation" / "2024" / "05" / "12" / "2024-05-12_Laporan_Keuangan.xlsx"
+        expected_dest = self.root / "Workstation-2024-05-12" / "2024-05-12_Laporan_Keuangan.xlsx"
         self.assertTrue(expected_dest.exists())
         self.assertFalse(doc.exists())
 
@@ -31,7 +31,7 @@ class TestOrganizersModes(unittest.TestCase):
 
         organizer.organize_folder(self.root)
 
-        expected_dest = self.root / "Moment" / "2023" / "12" / "25" / "IMG_20231225_201530.jpg"
+        expected_dest = self.root / "Moment-2023-12-25" / "IMG_20231225_201530.jpg"
         self.assertTrue(expected_dest.exists())
         self.assertFalse(photo.exists())
 

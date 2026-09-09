@@ -6,7 +6,7 @@
 [![Package Manager](https://img.shields.io/badge/managed%20by-uv-purple.svg)](https://docs.astral.sh/uv/)
 [![Tests Status](https://img.shields.io/badge/tests-53%20passing-brightgreen.svg)](#-testing)
 
-**TidyFile Suite v3.0.0** adalah utilitas otomatisasi modular berbasis Python dan standalone executable yang dirancang untuk merapikan direktori berantakan (seperti `Downloads`, `Desktop`, folder foto/video, dokumen kerja, dataset AI, dll.) secara cerdas, aman, dan berkinerja tinggi.
+**TidyFile Suite v3.1.0** adalah utilitas otomatisasi modular berbasis Python dan standalone executable yang dirancang untuk merapikan direktori berantakan (seperti `Downloads`, `Desktop`, folder foto/video, dokumen kerja, dataset AI, dll.) secara cerdas, aman, dan berkinerja tinggi.
 
 ---
 
@@ -15,9 +15,9 @@
 1. **📁 Tidy File (Core):**
    * Merapikan file ke subfolder kategori (`Documents`, `Images`, `Code_and_Projects`, `Audio_and_Video`, `Data_and_Models`, `Compressed_and_Packages`, `Fonts`, `Others`) berdasarkan ekstensi.
 2. **💼 Tidy Workstation:**
-   * Merapikan dokumen kerja berdasarkan tanggal metadata ke dalam hirarki `Workstation/YYYY/MM/DD/`.
+   * Merapikan dokumen kerja berdasarkan tanggal metadata ke dalam folder flat `Workstation-YYYY-MM-DD/`.
 3. **📸 Tidy Moment:**
-   * Merapikan foto, video, dan audio dari berbagai format dan perangkat ke dalam hirarki `Moment/YYYY/MM/DD/`.
+   * Merapikan foto, video, dan audio dari berbagai format dan perangkat ke dalam folder flat `Moment-YYYY-MM-DD/`.
 
 ---
 
@@ -51,7 +51,7 @@ Untuk mode **Tidy Workstation** dan **Tidy Moment**, sistem menggunakan alur cer
 ```text
 TidyFile/
 ├── src/
-│   ├── __init__.py          # Penanda paket python & versi (v3.0.0)
+│   ├── __init__.py          # Penanda paket python & versi (v3.1.0)
 │   ├── main.py              # Entrypoint CLI, subcommand & interactive menu
 │   ├── metadata_parser.py   # 3-Tier Date Extractor (EXIF, Video, Regex, mtime)
 │   ├── config_manager.py    # Handler konfigurasi & fallback categories
@@ -92,8 +92,8 @@ TidyFile/
  Target Folder : D:/FotoLiburan
 ==========================================================
  [1] Tidy File        (Organize by Category & Extension)
- [2] Tidy Workstation (Work Files -> Workstation/YYYY/MM/DD)
- [3] Tidy Moment      (Photos & Videos -> Moment/YYYY/MM/DD)
+ [2] Tidy Workstation (Work Files -> Workstation-YYYY-MM-DD)
+ [3] Tidy Moment      (Photos & Videos -> Moment-YYYY-MM-DD)
  [4] Keluar
 ==========================================================
 Pilih mode [1-4]: 
